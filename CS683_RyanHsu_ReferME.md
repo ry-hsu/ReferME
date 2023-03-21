@@ -1,5 +1,8 @@
 # METCS683Assignments
-# GetOnTrack
+
+**This README is used for note taking throughout the class project. The Project Report can be found in**
+[Project Report](./CS683_RyanHsu_ReferME.md)
+
 Ryan Hsu
 
 ## Instructions
@@ -17,7 +20,7 @@ Ryan Hsu
 
 Online reviews are everywhere for restaurants, products, and services and healthcare is not far behind those. To that end, 
 online reviews for healthcare is growing rapidly but is also hard to find and hard to give reviews. It is also a field where
-personal referals still hold a lot of weight. 
+personal referrals still hold a lot of weight. 
 
 The purpose of this app, ReferMe *(working title), is to provide a platform to grade, review and refer 
 healthcare as a service to the public, by the public and for the public. And as it is only to review healthcare services
@@ -31,8 +34,6 @@ the best laboratory facility?
 
 *(This section should be completed in __iteration 0__ as part of your proposal. It can be modified in later iterations. )
 
-*(This section should describe some similar apps and the similarities or differences between yours and other applications.
-)*
 
 Similar apps in the app store:
 
