@@ -13,11 +13,6 @@ Ryan Hsu
 
 
 ## Overview
-
-*(This section should be completed in __iteration 0__ as part of your proposal. It can be modified in later iterations. )
-
-*(This section should give an overview of your project. It should include the motivation, the purpose and the potential users of the proposed application. This section should be completed in iteration 0 as part of your proposal. It can be modified in later iterations.)*
-
 Online reviews are everywhere for restaurants, products, and services and healthcare is not far behind those. To that end, 
 online reviews for healthcare is growing rapidly but is also hard to find and hard to give reviews. It is also a field where
 personal referrals still hold a lot of weight. 
@@ -31,10 +26,6 @@ moved to an area. What specialist is most liked for this issue? What office is e
 the best laboratory facility? 
 
 ## Related Work
-
-*(This section should be completed in __iteration 0__ as part of your proposal. It can be modified in later iterations. )
-
-
 Similar apps in the app store:
 
 Yelp
@@ -64,9 +55,6 @@ Differences
 
 
 ## Requirement Analysis and Testing
-
-*(This section should clearly describe all features/requirements that you __plan to implement or have implemented__ for your application. You should separate them into three categories: essential, desirable and optional.
-
 | Title<br>(Essential/Desirable/Optional) | Search database for a provider (Essential)                                                                                                                               |
 |-----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Description                             | As a user, I want to be able to search for a provider that I want to review or see reviews of                                                                            |
@@ -82,7 +70,6 @@ Differences
 |Acceptance Tests| When the user finds a posting of a provider, they are given the option to review the provider. This review process can be found in the following feature |
 |Test Results|                                                                                                                                                          |
 |Status|                                                                                                                                                          |
-
 
 |Title<br>(Essential/Desirable/Optional) | Review system (Essential)                                                                                                   |
 |---|-----------------------------------------------------------------------------------------------------------------------------|
@@ -126,9 +113,7 @@ Differences
 
 ## Design and Implementation
 
-*(In iteration 0, you can provide an overview or simply  list some basic implementation features.
-In later iterations, this section should be updated to provide detailed explanation on how you implement your requirements. You shall provide some explanation as well as supporting evidence, such as sample code snippets (or the file name and line numbers of the code you try to explain). In particular, if you used any features that are not discussed in the class, provide a detailed explanation here.)*
-
+* Iteration 0
 ReferMe is mainly focused on being a new review system. However, for this it has to utilize a simple search UI for users to search for providers given a location. 
 After searching for providers, users can review them with a simple review system. The search functionality is not as big a focus as there are different APIs that could
 help this functionality. However, ReferMe will allow the user to search by a provider and not just a registered business.
@@ -139,13 +124,54 @@ differentiate depending on what is more important to them.
 
 Eventually, the app may be able to use Google's Business API to help search functionality. 
 
+* Iteration 1
+Create UIs for search, results and review fragments with their corresponding layout XMLs.
+
+The following files created:
+SearchFragment.kt
+ReviewFragment.kt
+ResultsFragment.kt
+SearchActivity.kt
+fragment_review.xml
+fragment_search.xml
+fragment_results.xml
+fragment_review.xml
+fragment_review_item.xml
+fragment_search.xml
+fragment_search_item.xml
+searchable.xml
+
+The layouts have been initially created while researching some more Materials UI components
+are still being done.
+
+Fragment Displaying a Single Searched Provider
+![Review Fragment](./Doc/ReviewFragment.png)
+
+Fragment Displaying Screen to Review a Provider
+![Review Single Fragment](./Doc/SingleReviewScreen.png)
+
+Fragment Displaying Search Results
+![Search Results](/Doc/SearchResultFragment.png)
+* This fragment may be recycled to for a different use after Search functionality is completed
+as it may be done in the toolbar instead
+
+
+A searchable activity was also created in advance for search functionality to be done
+in the Iteration 4
+
+Intent Added to Manifest File
+![Manifest Search Activity](./Doc/Search1)
+
+Searchable XML Resource Created
+![Searchable XML Resource](./Doc/Search2)
+
+
+
 ## Project Structure
-*(Please provide a screenshot(s) of your current project structure, which should show all the packages, kotlin/java files and resource files in your project. You should also highlight any files/packages you have changed, added/deleted in this iteration compared with the previous iteration. __This is not needed for iteration 0__)*
+Current Project Structure
+![Project Directory](./Doc/Directory1.png)
 
 ## Timeline
-
-*(Please provide  a summary of the requirements implemented and Android/third party components used in the past and current iterations, and the plan in the future iteration. __This is needed for every iteration including iteration 0.__ In iteration 0, you shall give a plan for __all future iterations__. In later iterations, you shall update it according to your progress such as describe what you have implemented in current iteration and modify the future iteration plan accordingly. The last two columns on the right are only needed if your project is a group project. )*
-
 Iteration 0 - Planning and proposal phase
 - Provide mockups of essential requirements for a minimum viable product
 - Give the overview of the systems purpose
@@ -156,19 +182,14 @@ Iteration 1 - UI Design and
 | Iteration | Application Requirements (Eseential/Desirable/Optional)             | Android Components and Features        | 
 |-----------|---------------------------------------------------------------------|----------------------------------------|
 | 0         | Mockups for all essential requirements and documentation            | None                                   |
-| 1         | Register as a User (Essential), Database of Providers (Essential)   | Activities, Services, Content Provider |
-| 2         | Search database for provider (Essential), Give a Review (Essential) | Activities, Content Provider           |
-| 3         | Search database for specialty (Desirable), Google API (Optional)    | Activities, Services, Content Provider |
+| 1         | Create UIs for Results (Essential) and Review (Essential)           | Layouts and Navigation                 |
+| 2         | Register as a User (Essential), Database of Providers (Essential)   | Activities, Services, Content Provider |
+| 3         | Search database for provider (Essential), Give a Review (Essential) | Activities, Content Provider           |
 
 
 ## Future Work (Optional)
-*(This section can describe possible future works. Particularly the requirements you planned but didn’t get time to implement, and possible Android components or features to implement them.
-This section is optional, and you can include this section in the final iteration if you want.)*
 
-
-##Project Demo Links
-*(For on campus students, we will have project presentations in class. __For online students, you are required to submit a video of your project presentation which includes a demo of your app and explanation of your implementation.__ You can use Kaltura to make the video and then submit it on blackboard. Please check the following link for the details of using Kaltura to make and submit videos on blackboard. You can also use other video tools and upload your video to youtube if you like: https://onlinecampus.bu.edu/bbcswebdav/courses/00cwr_odeelements/metcs/cs_Kaltura.htm  )*
-
+## Project Demo Links
 
 ## References
 https://play.google.com/store/apps/details?id=com.yelp.android&hl=en_US&gl=US
