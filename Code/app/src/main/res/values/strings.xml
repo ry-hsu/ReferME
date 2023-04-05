@@ -13,4 +13,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="app_label">Search ReferME</string>
     <string name="search_hint">Enter a provider name or specialty</string>
+
+    <string name="bed_label">Bedside Manner</string>
+    <string name="expert_label">Expertise</string>
+    <string name="fo_label">Front Office Staff</string>
+    <string name="facility_label">Facility</string>
 </resources>
