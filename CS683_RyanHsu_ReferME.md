@@ -118,9 +118,10 @@ ReferMe is mainly focused on being a new review system. However, for this it has
 After searching for providers, users can review them with a simple review system. The search functionality is not as big a focus as there are different APIs that could
 help this functionality. However, ReferMe will allow the user to search by a provider and not just a registered business.
 
-The review system will ask the user to rate from 1 to 5 regarding four major areas: Bedside manner, Expertise, Front Office staff, and Facility. This allows users to quickly
+The review system will ask the user to rate from 1 to 10 regarding four major areas: Bedside manner, Expertise, Front Office staff, and Facility. This allows users to quickly
 review a provider or clinic without having to write down each of these important things. This gives more of a concise review and quantifies each area for users to more easily
-differentiate depending on what is more important to them. 
+differentiate depending on what is more important to them. These 10 points will be displayed as 5 stars.
+So each point is worth half a star. 
 
 Eventually, the app may be able to use Google's Business API to help search functionality. 
 
@@ -128,44 +129,80 @@ Eventually, the app may be able to use Google's Business API to help search func
 Create UIs for search, results and review fragments with their corresponding layout XMLs.
 
 The following files created:
-SearchFragment.kt
-ReviewFragment.kt
-ResultsFragment.kt
-SearchActivity.kt
-fragment_review.xml
-fragment_search.xml
-fragment_results.xml
-fragment_review.xml
-fragment_review_item.xml
-fragment_search.xml
-fragment_search_item.xml
-searchable.xml
+* SearchFragment.kt 
+* ReviewFragment.kt 
+* ResultsFragment.kt 
+* SearchActivity.kt 
+* fragment_review.xml 
+* fragment_search.xml 
+* fragment_results.xml 
+* fragment_review.xml 
+* fragment_review_item.xml 
+* fragment_search.xml 
+* fragment_search_item.xml 
+* searchable.xml
+* bottom_nav_menu.xml
+* Provider.kt
 
-The layouts have been initially created while researching some more Materials UI components
-are still being done.
+
+**ReviewFragment.kt and fragment_review.xml**
+The UI for when a single provider has been clicked to view includes the provider picture, if it exists,
+their name, specialty and contact info. Then, using a linear layout, four categories will be displayed
+below using a ratings bar for each category: Bedside Manner, Expertise, Front Office and Facility.
+
+I am still considering what to do for the bottom portion and am going between either having a rolling
+RecyclerView of written reviews or maybe a RecyclerView of keywords from written reviews.
 
 Fragment Displaying a Single Searched Provider
 ![Review Fragment](./Doc/ReviewFragment.png)
 
+**fragment_first.xml**
+The UI for when the user reviews a provider has the same avatar plus provider information as the review
+fragment. I think this could be centralized since they are the same in a later iteration. The review
+section uses Material UI discrete sliders and has some textual descriptions of bad - good to help
+the user. 
+
+Also, I will update the name of the xml to be something more descriptive.
+
 Fragment Displaying Screen to Review a Provider
-![Review Single Fragment](./Doc/SingleReviewScreen.png)
+![Review Single Fragment](./Doc/SingleReviewUpdated.png)
+
+
+**SearchFragment.kt, fragment_search.xml, SearchActivity.kt, searchable.xml**
+I started work on the search functionality. The hope is to use the SearchBar from the Materials UI 
+components. For this I started created a searchable activity and a menu layout to later place in the 
+tool bar in activity_main.xml. For now a layout with just a RecyclerView is the place holder. 
 
 Fragment Displaying Search Results
 ![Search Results](/Doc/SearchResultFragment.png)
-* This fragment may be recycled to for a different use after Search functionality is completed
-as it may be done in the toolbar instead
 
+_This fragment may be recycled to for a different use after Search functionality is completed
+as it may be done in the toolbar instead_
+
+**Navigation, bottom_nav_menu.xml**
+A bottom navigation has been added to the main activity and will be the main way users can move between
+UIs. Currently, there are three buttons: home, search and results. For now, search will be the search
+UI with a searchbar, results will be the UI that holds the results and as for now home has nothing
+on it but may just have a single search text box that on click moves the user to the search bar on the
+search fragment when data is entered.
+
+A fourth button will be added in iteration 4 that adds user registration.
+![Bottom Navigation](./Doc/BottomNav.png)
 
 A searchable activity was also created in advance for search functionality to be done
 in the Iteration 4
 
 Intent Added to Manifest File
 ![Manifest Search Activity](./Doc/Search1)
-
 Searchable XML Resource Created
 ![Searchable XML Resource](./Doc/Search2)
 
+The next step is finishing the logic behind these UIs, for now a companion object may be used just
+to test these UIs with a temporary Provider instance. Eventually, this will be replaced with a database.
 
+There is also one last piece to the UI that needs to be designed which is the "written review" section.
+The thought behind this app is to remove the need to read reviews, so this may be simple logic that
+reads the reviews, grabs the keywords used the most often and display the keywords in a gridlayout.
 
 ## Project Structure
 Current Project Structure
