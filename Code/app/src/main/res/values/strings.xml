@@ -18,4 +18,6 @@
     <string name="expert_label">Expertise</string>
     <string name="fo_label">Front Office Staff</string>
     <string name="facility_label">Facility</string>
+
+    <string name="submit_button">Submit</string>
 </resources>

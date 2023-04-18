@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/SecondFragment">
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="bu.rhsu.referme.SingleReviewFragment"
+        android:name="bu.rhsu.referme.fragments.SingleReviewFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_single_review">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
@@ -24,5 +24,17 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_addProviderFragment"
+            app:destination="@id/addProviderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addProviderFragment"
+        android:name="bu.rhsu.referme.fragments.AddProviderFragment"
+        android:label="fragment_add_prov"
+        tools:layout="@layout/fragment_add_prov" >
+        <action
+            android:id="@+id/action_addProviderFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
     </fragment>
 </navigation>
