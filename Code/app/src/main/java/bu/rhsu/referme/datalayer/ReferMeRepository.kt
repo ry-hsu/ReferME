@@ -3,7 +3,43 @@ package bu.rhsu.referme.datalayer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.*
+import bu.rhsu.referme.firebase.FirebaseStorage
 import java.util.concurrent.Executors
+
+import bu.rhsu.referme.datalayer.Provider
+import bu.rhsu.referme.datalayer.Review
+
+class ReferMeRepository(private val firebaseStorage: FirebaseStorage) {
+     fun addProvider(provider: Provider){
+        firebaseStorage.addProvider(provider)
+    }
+
+    fun delProject(provider: Provider) {
+        firebaseStorage.delProvider(provider)
+    }
+
+
+    fun getAllProjects(): LiveData<List<Provider>> {
+        firebaseStorage.loadAllProviders()
+        return firebaseStorage.providerLiveData
+    }
+
+    fun searchProvider(name: String): MutableLiveData<List<Provider>> {
+        firebaseStorage.getProviderByName(name)
+        return firebaseStorage.providerLiveData
+    }
+
+/*   fun searchProjectsbyTitle(projTitle:String): LiveData<List<Project>> {
+        return firebaseStorage.searchProjectsbyTitle(projTitle)
+    }*/
+
+   fun count(): LiveData<Int>{
+        return firebaseStorage.count
+    }
+
+
+}
+/*
 
 class ReferMeRepository(private val providerDao: ProviderDao,
     private val reviewDao: ReviewDao) {
@@ -25,7 +61,7 @@ class ReferMeRepository(private val providerDao: ProviderDao,
         return providerDao.count()
     }
 
-    fun getAllProviders(): MutableLiveData<List<Provider>> {
+    fun getAllProviders(): LiveData<List<Provider>> {
         return providerDao.getAllProviders()
     }
 
@@ -54,11 +90,11 @@ class ReferMeRepository(private val providerDao: ProviderDao,
         return reviewDao.count()
     }
 
-    fun getReviewForProvider(provId: Int): MutableLiveData<List<Review>> {
+    fun getReviewForProvider(provId: Int): LiveData<List<Review>> {
         return reviewDao.getReviewForProvider(provId)
     }
 
-    fun getReviewForProviderDate(provId:String) {
+    fun getReviewForProviderDate(provId:Int): LiveData<List<Review>> {
         return reviewDao.getReviewForProviderDate(provId)
     }
-}
+}*/

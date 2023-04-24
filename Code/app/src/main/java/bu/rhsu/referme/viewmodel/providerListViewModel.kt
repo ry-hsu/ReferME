@@ -12,14 +12,14 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.Executors
 
 class providerListViewModel(application: Application): AndroidViewModel(application)  {
-    private val _curProviders: MutableLiveData<Review> = MutableLiveData()
+    val curProviders: MutableLiveData<Provider> = MutableLiveData()
 
     val referMeRepository =
         (application as ReferMeApplication).referMeRepository
 
-    fun getProviderByName(name: String) {
+/*    fun getProviderByName(name: String) {
         referMeRepository.getProviderByName(name)
-    }
+    }*/
 
     fun addProvider(provider: Provider) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -27,9 +27,9 @@ class providerListViewModel(application: Application): AndroidViewModel(applicat
         }
     }
 
-    fun delProvider(provider: Provider) {
+/*    fun delProvider(provider: Provider) {
         viewModelScope.launch(Dispatchers.IO) {
             referMeRepository.delProvider(provider)
         }
-    }
+    }*/
 }

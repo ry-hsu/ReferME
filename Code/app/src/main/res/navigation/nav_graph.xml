@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_SecondFragment_to_addProviderFragment"
             app:destination="@id/addProviderFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_simpleSearchFragment2"
+            app:destination="@id/simpleSearchFragment2" />
     </fragment>
     <fragment
         android:id="@+id/addProviderFragment"
@@ -34,7 +37,37 @@
         android:label="fragment_add_prov"
         tools:layout="@layout/fragment_add_prov" >
         <action
-            android:id="@+id/action_addProviderFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_addProvider_pop"
+            app:popUpTo="@id/SecondFragment"
+            app:popUpToInclusive="true" >
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/resultsFragment"
+        android:name="bu.rhsu.referme.fragments.ResultsFragment"
+        android:label="fragment_results"
+        tools:layout="@layout/fragment_results" >
+        <action
+            android:id="@+id/action_resultsFragment_to_reviewFragment"
+            app:destination="@id/reviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/simpleSearchFragment2"
+        android:name="bu.rhsu.referme.fragments.SimpleSearchFragment"
+        android:label="fragment_simple_search"
+        tools:layout="@layout/fragment_simple_search" >
+        <action
+            android:id="@+id/action_simpleSearchFragment2_to_resultsFragment"
+            app:destination="@id/resultsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewFragment"
+        android:name="bu.rhsu.referme.fragments.ReviewFragment"
+        android:label="ReviewFragment">
+        <action
+            android:id="@+id/action_addProvider_pop"
+            app:popUpTo="@id/resultsFragment"
+            app:popUpToInclusive="true" >
+        </action>
     </fragment>
 </navigation>

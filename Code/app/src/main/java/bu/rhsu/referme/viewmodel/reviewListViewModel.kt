@@ -23,11 +23,11 @@ class reviewListViewModel(application: Application): AndroidViewModel(applicatio
     private var _reviewList: MutableLiveData<List<Review>> = MutableLiveData()
 
     fun initReviews(provider: Provider){
-        if (_reviewList.value == null)
-            _reviewList = referMeRepository.getReviewForProvider(provider.provId)
+        //if (_reviewList.value == null)
+            //_reviewList = referMeRepository.getReviewForProvider(provider.provId)
     }
 
-    fun getReviews(provider: Provider) {
+/*    fun getReviews(provider: Provider) {
         referMeRepository.getReviewForProvider(provider.provId)
     }
 
@@ -41,6 +41,6 @@ class reviewListViewModel(application: Application): AndroidViewModel(applicatio
         viewModelScope.launch(Dispatchers.IO) {
             referMeRepository.delReview(review)
         }
-    }
+    }*/
 
 }

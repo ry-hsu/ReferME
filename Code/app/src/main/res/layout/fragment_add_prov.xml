@@ -33,20 +33,21 @@
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
         android:text="submit"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cancel"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
         android:text="cancel"
-        app:layout_constraintStart_toEndOf="@+id/submit"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/submit"
-        app:layout_constraintBottom_toBottomOf="@+id/submit" />
+        app:layout_constraintStart_toEndOf="@+id/submit" />
 
     <EditText
         android:id="@+id/editSpecialtyMultiLine"
@@ -69,34 +70,37 @@
         android:id="@+id/editTextEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Email"
         android:inputType="textPersonName"
-        android:text="Email"
-        app:layout_constraintTop_toBottomOf="@+id/editSpecialtyMultiLine"
-        tools:layout_editor_absoluteX="10dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editSpecialtyMultiLine" />
 
     <EditText
         android:id="@+id/editTextProvPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Phone"
         android:inputType="textPersonName"
-        android:text="Phone"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
-        tools:layout_editor_absoluteX="8dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
 
     <EditText
         android:id="@+id/editTextProvZip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Zipcode"
         android:inputType="textPersonName"
-        android:text="ZipCode"
-        app:layout_constraintTop_toBottomOf="@+id/editTextProvPhone"
-        tools:layout_editor_absoluteX="13dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextProvPhone" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

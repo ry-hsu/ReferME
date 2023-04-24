@@ -2,6 +2,7 @@ package bu.rhsu.referme.fragments
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.navigation.findNavController
 import bu.rhsu.referme.databinding.FragmentAddProvBinding
 import bu.rhsu.referme.viewmodel.AddViewModel
 import bu.rhsu.referme.viewmodel.providerListViewModel
+import androidx.navigation.fragment.findNavController
 
 class AddProviderFragment : Fragment(),View.OnClickListener {
 
@@ -34,9 +36,9 @@ class AddProviderFragment : Fragment(),View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         listViewModel =
-            ViewModelProvider(requireActivity()).get(providerListViewModel::class.java)
+            ViewModelProvider(requireActivity())[providerListViewModel::class.java]
         viewModel =
-            ViewModelProvider(requireActivity()).get(AddViewModel::class.java)
+            ViewModelProvider(requireActivity())[AddViewModel::class.java]
 
         binding.submit.setOnClickListener (this)
         binding.cancel.setOnClickListener (this)
@@ -58,8 +60,9 @@ class AddProviderFragment : Fragment(),View.OnClickListener {
             //listViewModel.addProject(project)
             viewModel.addProvider(provider)
         }
-        view.findNavController().navigate(R.id.action_addProviderFragment_to_SecondFragment)
-        activity?.onBackPressed()
+
+        findNavController().navigate(R.id.action_addProvider_pop)
+        //activity?.onBackPressed()
 
     }
 

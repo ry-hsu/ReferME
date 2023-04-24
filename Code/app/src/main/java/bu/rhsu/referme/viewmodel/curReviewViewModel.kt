@@ -36,7 +36,7 @@ class curReviewViewModel(application: Application): AndroidViewModel(application
         return _curReview.value?.providerID == provider.providerID
     }
 
-    fun updateCurprovider(date: Date, bedManner: Float, expertise: Float,
+/*    fun updateCurprovider(date: String, bedManner: Float, expertise: Float,
                           frontOffice: Float, facility: Float, text: String?){
         _curReview.value = _curReview.value?.apply{
             this.date = date
@@ -49,6 +49,6 @@ class curReviewViewModel(application: Application): AndroidViewModel(application
         viewModelScope.launch(Dispatchers.IO) {
             projectPortalRepository.editReview(_curReview.value!!)
         }
-    }
+    }*/
 
 }

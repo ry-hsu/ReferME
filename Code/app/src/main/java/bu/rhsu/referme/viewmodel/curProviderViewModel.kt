@@ -21,7 +21,7 @@ class curProviderViewModel(application: Application): AndroidViewModel(applicati
         (application as ReferMeApplication).referMeRepository
 
 
-    fun initCurprovider(provider: Provider){
+    fun initCurProvider(provider: Provider){
         if (_curProvider.value == null)
             _curProvider.value = provider
     }
@@ -34,7 +34,7 @@ class curProviderViewModel(application: Application): AndroidViewModel(applicati
         return _curProvider.value?.provId == provider.provId
     }
 
-    fun updateCurprovider(name: String, specialty: String?, phone: String?,
+/*    fun updateCurprovider(name: String, specialty: String?, phone: String?,
                          email: String?){
         _curProvider.value = _curProvider.value?.apply{
             this.name = name
@@ -45,5 +45,5 @@ class curProviderViewModel(application: Application): AndroidViewModel(applicati
         viewModelScope.launch(Dispatchers.IO) {
             projectPortalRepository.editProvider(_curProvider.value!!)
         }
-    }
+    }*/
 }

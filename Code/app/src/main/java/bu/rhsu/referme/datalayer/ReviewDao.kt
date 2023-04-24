@@ -19,9 +19,9 @@ interface ReviewDao {
     @Query("SELECT count(*) From reviews")
     fun count(): LiveData<Int>
 
-    @Query("SELECT * FROM reviews WHERE providerID = :provId")
-    fun getReviewForProvider(provId: Int): MutableLiveData<List<Review>>
+    @Query("SELECT * FROM reviews WHERE providerId = :provId")
+    fun getReviewForProvider(provId: Int): LiveData<List<Review>>
 
-    @Query("SELECT * FROM reviews WHERE providerID = :provId ORDER BY date ASC")
-    fun getReviewForProviderDate(provId:String)
+    @Query("SELECT * FROM reviews WHERE providerId = :provId ORDER BY datetime ASC")
+    fun getReviewForProviderDate(provId: Int): LiveData<List<Review>>
 }

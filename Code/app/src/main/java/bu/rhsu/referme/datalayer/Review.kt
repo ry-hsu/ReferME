@@ -9,7 +9,7 @@ import java.util.*
 data class Review(
     @PrimaryKey(autoGenerate = true)
     val reviewId: Int,
-    @ColumnInfo(name="date")
+    @ColumnInfo(name="datetime")
     var date: String,
     @ColumnInfo(name="providerId")
     val providerID: Int,
@@ -20,4 +20,5 @@ data class Review(
     var frontOffice: Float,
     var facility: Float,
     var text: String?) {
+    var docId = ""
 }

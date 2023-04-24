@@ -1,5 +1,6 @@
 package bu.rhsu.referme
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -9,12 +10,24 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import bu.rhsu.referme.databinding.ActivityMainBinding
+import bu.rhsu.referme.fragments.SingleReviewFragment
+import bu.rhsu.referme.ui.login.LoginActivity
+import bu.rhsu.referme.ui.login.LoginViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
+    private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,13 +38,21 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
+
+        val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        // Hook your navigation controller to bottom navigation view
+        navView.setupWithNavController(navController)
+
+
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.fab.setOnClickListener { view ->
+/*        binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
-        }
+        }*/
+
+        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -46,6 +67,27 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
+            R.id.logout -> {
+/*                val logoutIntent =
+                    Intent(this, LoginActivity::class.java).apply{
+                        putExtra("Logout", true)
+                    }
+
+                startActivity(logoutIntent)*/
+                loginViewModel.logout()
+                val loginIntent = Intent(this, LoginActivity::class.java)
+
+                startActivity(loginIntent)
+                finish()
+
+                Toast.makeText(
+                    applicationContext,
+                    "Bye!",
+                    Toast.LENGTH_LONG
+                ).show()
+
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -55,4 +97,5 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
+
 }

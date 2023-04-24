@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "605766800055",
+    "project_id": "referme-bf891",
+    "storage_bucket": "referme-bf891.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605766800055:android:83cf3df1662a602a43f332",
+        "android_client_info": {
+          "package_name": "bu.rhsu.referme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "605766800055-mlu5ocripl309jg12tkh49n98r4jod0a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEESSLILP_FmjKiHi7CbxoyVf0zPQ2WGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "605766800055-mlu5ocripl309jg12tkh49n98r4jod0a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

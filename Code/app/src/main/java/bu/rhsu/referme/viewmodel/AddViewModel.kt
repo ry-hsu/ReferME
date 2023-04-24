@@ -17,9 +17,11 @@ class AddViewModel(application: Application): AndroidViewModel(application)  {
     val referMeRepository =
         (application as ReferMeApplication).referMeRepository
 
+/*
     fun getProviderByName(name: String) {
         referMeRepository.getProviderByName(name)
     }
+*/
 
     fun addProvider(provider: Provider) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -27,10 +29,10 @@ class AddViewModel(application: Application): AndroidViewModel(application)  {
         }
     }
 
-    fun delProvider(provider: Provider) {
+/*    fun delProvider(provider: Provider) {
         viewModelScope.launch(Dispatchers.IO) {
             referMeRepository.delProvider(provider)
         }
-    }
+    }*/
 
 }
