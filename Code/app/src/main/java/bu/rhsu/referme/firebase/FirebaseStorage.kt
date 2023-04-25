@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Delete
-import androidx.room.Query
+//import androidx.room.Query
 import androidx.room.Update
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.Query
 
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
@@ -33,15 +34,11 @@ class FirebaseStorage {
 
     var count: MutableLiveData<Int> = MutableLiveData<Int>(0)
 
-    fun getRef(): CollectionReference{
-        return firebaseFirestore.collection ("providers/" + mAuth.uid + "/reviews")
-    }
-
-    fun getProviderRef(): CollectionReference {
+    private fun getProviderRef(): CollectionReference {
         return firebaseFirestore.collection("providers")
     }
 
-    fun getReviewRef() : CollectionReference {
+    private fun getReviewRef() : CollectionReference {
         return firebaseFirestore.collection("reviews")
     }
 
@@ -101,6 +98,54 @@ class FirebaseStorage {
             }
     }
 
+
+    fun getProviderByName(name: String, specialty: String, zip: Int) {
+
+        var query = getProviderRef().whereGreaterThan("name","")
+        if(name != "") {
+            query = query.whereEqualTo("name",name)
+            Log.d("FirebaseGet","Name")
+        }
+        if(specialty != "") {
+            query = query.whereEqualTo("specialty",specialty)
+            Log.d("FirebaseGet","Specialty")
+        }
+        if(zip != 0) {
+            query = query.whereEqualTo("zip",zip)
+            Log.d("FirebaseGet","Zip")
+        }
+
+        if(name != "" || specialty != "" || zip != 0) {
+            query.get().addOnSuccessListener {documents ->
+                var providers = ArrayList<Provider>()
+                documents?.forEach {document ->
+                    document.toObject<Provider>(Provider::class.java).let {
+                            provider ->
+                        provider.docId = document.id
+                        providers.add(provider)
+                    }
+                }
+                providerLiveData.setValue(providers)
+            }
+        }
+    }
+    fun getProviderByName(zip: Int) {
+        getProviderRef()
+            .whereEqualTo("zip",zip)
+            .get()
+            .addOnSuccessListener {documents ->
+                var providers = ArrayList<Provider>()
+                documents?.forEach {document ->
+                    document.toObject<Provider>(Provider::class.java).let {
+                            provider ->
+                        provider.docId = document.id
+                        providers.add(provider)
+                    }
+                }
+                providerLiveData.setValue(providers)
+            }
+    }
+
     fun getProviderBySpecialty(specialty: String) {
         getProviderRef()
             .whereEqualTo("specialty",specialty)
@@ -140,24 +185,37 @@ class FirebaseStorage {
             .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
     }
 
-
-    fun loadAllReviews(provId: String){
+    fun loadReviewsForProvider(providerId: String){
         getReviewRef()
-            .addSnapshotListener {documents,e->
+            .whereEqualTo("providerID",providerId)
+            .get()
+            .addOnSuccessListener {documents ->
                 var reviews = ArrayList<Review>()
-                documents?.forEach{document ->
-                    document.toObject<Review>(Review::class.java).let{
-                            review->
+                documents?.forEach {document ->
+                    document.toObject<Review>(Review::class.java).let {
+                            review ->
                         review.docId = document.id
                         reviews.add(review)
                     }
                 }
                 reviewLiveData.setValue(reviews)
-                e?.let{
-                    Log.d("Firebase storage","listen failed", e)
-                }
             }
+    }
 
+    fun loadAllReviews(){
+        getReviewRef()
+            .get()
+            .addOnSuccessListener {documents ->
+                var reviews = ArrayList<Review>()
+                documents?.forEach {document ->
+                    document.toObject<Review>(Review::class.java).let {
+                            review ->
+                        review.docId = document.id
+                        reviews.add(review)
+                    }
+                }
+                reviewLiveData.setValue(reviews)
+            }
     }
 
 

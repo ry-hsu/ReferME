@@ -1,5 +1,6 @@
 package bu.rhsu.referme.datalayer
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.*
@@ -10,6 +11,7 @@ import bu.rhsu.referme.datalayer.Provider
 import bu.rhsu.referme.datalayer.Review
 
 class ReferMeRepository(private val firebaseStorage: FirebaseStorage) {
+    // Functions to get provider from repository
      fun addProvider(provider: Provider){
         firebaseStorage.addProvider(provider)
     }
@@ -19,7 +21,7 @@ class ReferMeRepository(private val firebaseStorage: FirebaseStorage) {
     }
 
 
-    fun getAllProjects(): LiveData<List<Provider>> {
+    fun getAllProviders(): LiveData<List<Provider>> {
         firebaseStorage.loadAllProviders()
         return firebaseStorage.providerLiveData
     }
@@ -28,17 +30,40 @@ class ReferMeRepository(private val firebaseStorage: FirebaseStorage) {
         firebaseStorage.getProviderByName(name)
         return firebaseStorage.providerLiveData
     }
-
-/*   fun searchProjectsbyTitle(projTitle:String): LiveData<List<Project>> {
-        return firebaseStorage.searchProjectsbyTitle(projTitle)
-    }*/
+    fun searchProviderAll(name:String, spec: String, zip: Int): MutableLiveData<List<Provider>> {
+        firebaseStorage.getProviderByName(name,spec,zip)
+        Log.d("getProvider",firebaseStorage.providerLiveData.value.toString())
+        return firebaseStorage.providerLiveData
+    }
 
    fun count(): LiveData<Int>{
         return firebaseStorage.count
     }
 
+    // Functions to get reviews for a provider from repository
+    fun addReview(review: Review){
+        firebaseStorage.addReview(review)
+    }
 
+    fun delReview(review: Review) {
+        firebaseStorage.delReview(review)
+    }
+
+    fun getReviewsForProvider(provider: Provider): MutableLiveData<List<Review>> {
+        firebaseStorage.loadReviewsForProvider(provider.docId)
+        Log.d("getReviews",firebaseStorage.reviewLiveData.value.toString())
+        Log.d("getReviews",provider.docId)
+        return firebaseStorage.reviewLiveData
+    }
+
+    fun getAllReviews(): MutableLiveData<List<Review>> {
+        firebaseStorage.loadAllReviews()
+        Log.d("getReviews",firebaseStorage.reviewLiveData.value.toString())
+        return firebaseStorage.reviewLiveData
+    }
 }
+
+// FOLLOWING CODE IS FOR USE WITH LOCAL DATABASE
 /*
 
 class ReferMeRepository(private val providerDao: ProviderDao,

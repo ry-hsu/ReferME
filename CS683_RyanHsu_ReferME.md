@@ -60,48 +60,48 @@ Differences
 | Description                             | As a user, I want to be able to search for a provider that I want to review or see reviews of                                                                            |
 | Mockups                                 | ![Search](./Doc/SearchMockup.png)                                                                                                                                        |
 | Acceptance Tests                        | Given a search bar is shown on the screen, When the user enters a name, results of existing providers are returned. If new, the option to create a new posting is given. |
-| Test Results                            |                                                                                                                                                                          |
-| Status                                  | UI is still under works. Not yet implemented yet.                                                                                                                        |
+| Test Results                            | Home, Search, Results, Review Summary, Single Review, Add Provider, Login all work                                                                                       |
+| Status                                  | Done                                                                                                                                                                     |
 
 |Title<br>(Essential/Desirable/Optional) | Give a review (Essential)                                                                                                                                |
 |---|----------------------------------------------------------------------------------------------------------------------------------------------------------|
 |Description| As a user, I want to be able to review a provider                                                                                                        |
 |Mockups| ![Review](./Doc/ReviewMockup.png)                                                                                                                        |
 |Acceptance Tests| When the user finds a posting of a provider, they are given the option to review the provider. This review process can be found in the following feature |
-|Test Results|                                                                                                                                                          |
-|Status|                                                                                                                                                          |
+|Test Results| Can give reviews to a provider and have it saved to a document in Firebase                                                                               |
+|Status| Done                                                                                                                                                     |
 
 |Title<br>(Essential/Desirable/Optional) | Review system (Essential)                                                                                                   |
 |---|-----------------------------------------------------------------------------------------------------------------------------|
 |Description| As a user, I want to be able to review a provider quickly and/or write a review                                             |
 |Mockups| ![ReviewSystem](./Doc/ReviewMockup.png)                                                                                     |
 |Acceptance Tests| When the user chooses to review a provider, the new review system is presented with the option of writing a review as well. |
-|Test Results|                                                                                                                             |
-|Status|                                                                                                                             |
+|Test Results| Review system with sliders working for a single review                                                                      |
+|Status| Done                                                                                                                        |
 
-|Title<br>(Essential/Desirable/Optional) | Search by specialty (Desirable)                                                                                                              |
+|Title<br>(Essential/Desirable/Optional) | Search by name, specialty, zip (Essential)                                                                                                   |
 |---|----------------------------------------------------------------------------------------------------------------------------------------------|
 |Description| As a user, I want to be able to search by specialty for providers to review or read reviews of                                               |
 |Mockups| ![Search](./Doc/SearchMockup.png)                                                                                                            |
 |Acceptance Tests| Given a search bar is shown on the screen, When the user enters a specialty, results of existing providers with that specialty are returned. |
-|Test Results|                                                                                                                                              |
-|Status|                                                                                                                                              |
+|Test Results| A composite query to Firebase is working                                                                                                     |
+|Status| Done                                                                                                                                         |
 
 |Title<br>(Essential/Desirable/Optional) | Register as a user (Essential)                                                                                                        |
 |---|---------------------------------------------------------------------------------------------------------------------------------------|
 |Description| As a user, I want to be able to review under a username that may not include my personal information but just pertinent information   |
 |Mockups| ![Review](./Doc/ReviewMockup.png)                                                                                                     |
 |Acceptance Tests| When the user wants to give a review, they must register with ReferME and provide some pertinent information, but nothing identifying |
-|Test Results|                                                                                                                                       |
-|Status|
+|Test Results| Login Authentication and Registration through Firebase is working                                                                     |
+|Status| Done |
 
 |Title<br>(Essential/Desirable/Optional) | Database of Providers (Essential)                                          |
 |---|----------------------------------------------------------------------------|
 |Description| As a user, I want to have a database of providers in the system to review  |
 |Mockups| ![Review](./Doc/ProviderPlatformMockup.png)                                |
 |Acceptance Tests| When the user reviews a provider, it will be saved in the ReferME database |
-|Test Results|                                                                            |
-|Status|
+|Test Results| Providers are saved in Firebase ![Firebase](./Doc/Firebase.png)            |
+|Status| Done |
 
 |Title<br>(Essential/Desirable/Optional) | Utilize Google Business API for search (Optional)                                                                             |
 |---|-------------------------------------------------------------------------------------------------------------------------------|
@@ -109,7 +109,7 @@ Differences
 |Mockups|                                                                                                                               |
 |Acceptance Tests| Given a search bar is shown on the screen, When the user enters a search term, Google's API will return results.              |
 |Test Results|                                                                                                                               |
-|Status|
+|Status| Not Done |
 
 ## Design and Implementation
 
@@ -276,6 +276,67 @@ manually to the database using the AddViewModel.kt
 
 ![Provider Fragment](./Doc/AddProvider.png)
 
+### Iteration 3
+Implemented Firebase Authentication and Storage
+Finished Review Summary and Give a Review functionality
+Query for Providers and display in RecyclerView
+
+**Firebase**
+Firebase authentication was added for login functionality. This was done by using the provided Android
+Studio login activity template and modifying the data source to be Firebase as well as modifying the
+way it checks for a logged in user. After getting authentication from Firebase, the logged in user is
+updated and when it is updated the logged in result is changed to SUCCESS and then the login activity
+is ended using "finish()" and an intent is send to MainActivity.kt to start the "main" activity for the
+application. LoginActivity.kt is set as the MAIN in the manifest file because that is where the users
+should start but the application is hidden behind this authentication. 
+
+For storage, two collections were created in Firestore: reviews and providers. These can also be created
+from within the app by adding a new provider if the database is empty and then a review on a provider
+if no reviews exist. 
+
+The providers collection stores all providers that have been added from the app. So for now, the application
+relies on users to populate the database. In the future I hope to implement Google search api to search
+for businesses and then use those results if a user chooses them to add to the database.
+
+The reviews collection is simple and is mapped to a provider by using the document.id of a provider.
+This value is the same key passed when a new review is added to Firebase.
+
+![Firebase](./Doc/Firebase.png)
+
+To get providers and reviews from Firebase queries are used to gather just the pertinent providers and 
+reviews. As this database could be quite large it doesn't make sense to gather all 
+documents in a collection. For providers, the query is by name, specialty and/or zipcode. Any of the
+three or all three could entered and then the query would use a Firebase index to search for results.
+In order to populate more data it is recommended to search for zip code 20202 to see more results on
+the screen when testing.
+
+![Search](./Doc/SearchScreen.png)
+
+In order to get reviews the reviews collection is queried for documents where the providerId matches
+the provider we are viewing. That ID is the autogenerated document id from Firebase that had been
+saved when the provider document is retrieved.
+
+**Review Summary and Give a Review**
+When a provider is selected a summary page of reviews for the provider is shown. This is a simple rating
+bar for each category: Bed Side Manner, Expertise, Front Office and Facility. The math behind it is
+quite simple as the sliders when giving a review are out of 100 the values for all reviews are added together.
+Then, to make the values out of 5 stars as is seen, the summation is divided by 10 to get the value out of 
+10 and then again by 2 (by 20 total) to be out of 5 stars. 
+
+![Ratings Math](./Doc/RatingsSummary.png)
+
+The summary of the reviews is then presented in one screen. From that same screen a user can give a
+review as well.
+
+![Review Summary](./Doc/ReviewSummary.png)
+
+![Review](./Doc/SingleReview.png)
+
+**RecyclerView**
+As the data was moved to Firebase the RecyclerView now has the query results applied to the list that
+drives the view. Each card in the RecyclerView then has a click listener that sends the provider to
+the Review Summary fragment with just the single Provider. 
+
 ## Project Structure
 Current Project Structure 
 Iteration 2
@@ -299,6 +360,11 @@ Iteration 2 - Database and ViewModel work
 - Create database and daos for providers and reviews
 - Create ViewModels to interact with database from fragments
 
+Iteration 3 - Completion
+- Firebase implementation
+- Search functionality to query for providers and under the hood query for reviews
+- Give a review and view summary of reviews fragments created
+
 | Iteration | Application Requirements (Essential/Desirable/Optional)            | Android Components and Features        | 
 |-----------|--------------------------------------------------------------------|----------------------------------------|
 | 0         | Mockups for all essential requirements and documentation           | None                                   |
@@ -308,8 +374,14 @@ Iteration 2 - Database and ViewModel work
 
 
 ## Future Work (Optional)
+Add to UI so it is more streamlined.
+- Add summary of reviews to the RecyclerView so users do not need to click a name to see the ratings
+- Utiltize more APIs to increase search results, currently relying on what is in the database. 
+- Providers need to be added manually which is tedious find a solution for this.
+- Fix navigation issues
 
 ## Project Demo Links
+
 
 ## References
 https://play.google.com/store/apps/details?id=com.yelp.android&hl=en_US&gl=US

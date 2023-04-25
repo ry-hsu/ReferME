@@ -5,12 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ResultsFragment">
+    tools:context=".fragments.ReviewFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="412dp"
-        android:layout_height="858dp"
+        android:layout_width="409dp"
+        android:layout_height="553dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="1dp"
@@ -60,12 +60,13 @@
                     android:textStyle="italic" />
 
                 <TextView
-                    android:id="@+id/phone"
+                    android:id="@+id/contact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="phone"
                     android:textSize="16sp"
                     android:textStyle="italic" />
+
             </LinearLayout>
         </LinearLayout>
 
@@ -81,13 +82,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/bed_label"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
-        <RatingBar
-            android:id="@+id/ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal">
+
+            <RatingBar
+                android:id="@+id/bedRating"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="false" />
+
+            <TextView
+                android:id="@+id/bedTextRating"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+        </LinearLayout>
 
         <View
             android:id="@+id/divider7"
@@ -100,13 +118,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/expert_label"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
-        <RatingBar
-            android:id="@+id/ratingBar2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal">
+
+            <RatingBar
+                android:id="@+id/expertRating"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="false" />
+
+            <TextView
+                android:id="@+id/expertTextRating"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="TextView"
+                android:textSize="20sp" />
+        </LinearLayout>
 
         <View
             android:id="@+id/divider8"
@@ -119,13 +153,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fo_label"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
-        <RatingBar
-            android:id="@+id/ratingBar4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal">
+
+            <RatingBar
+                android:id="@+id/officeRating"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="false" />
+
+            <TextView
+                android:id="@+id/officeTextRating"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="TextView"
+                android:textSize="20sp" />
+        </LinearLayout>
 
         <View
             android:id="@+id/divider9"
@@ -138,13 +188,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/facility_label"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
-        <RatingBar
-            android:id="@+id/ratingBar3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal">
+
+            <RatingBar
+                android:id="@+id/facilityRating"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="false" />
+
+            <TextView
+                android:id="@+id/facilityTextRating"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="TextView"
+                android:textSize="20sp" />
+        </LinearLayout>
 
         <View
             android:id="@+id/divider10"
@@ -153,12 +219,24 @@
             android:background="?android:attr/listDivider" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/statisticsTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:gravity="center_horizontal"
+            android:text="TextView"
+            android:textSize="16sp" />
 
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/addReviewButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Review"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

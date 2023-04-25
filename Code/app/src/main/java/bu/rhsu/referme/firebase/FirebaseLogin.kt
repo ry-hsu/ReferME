@@ -29,6 +29,7 @@ class FirebaseLogin (application: Application){
     private var application = application
     private  var mAuth: FirebaseAuth
     var loggedInUser: MutableLiveData<LoggedInUser>
+    var running: Boolean = false
 
     init {
         FirebaseApp.initializeApp (application.applicationContext);
@@ -45,6 +46,7 @@ class FirebaseLogin (application: Application){
 
     fun login(email: String, passwd: String?){
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(passwd)) {
+            running = true
             mAuth.signInWithEmailAndPassword(email, passwd!!).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("signInExisitingUser", "Signed in exisiting user with email: $email")
@@ -54,13 +56,14 @@ class FirebaseLogin (application: Application){
                         it.email?.split("@")?.get(0)?: "",
                             it.email ?: ""))
                     }
+                    running = false
                 } else {
                     loggedInUser.value = null
                     var errorMsg = task.exception?.message?:""
                     Log.d("FirebaseLogin failed: ", errorMsg)
                     Toast.makeText(application.applicationContext,
                         "firebase login failed: $errorMsg", Toast.LENGTH_LONG).show()
-
+                    running = false
 
                 }
             }
@@ -113,5 +116,8 @@ class FirebaseLogin (application: Application){
         user.updateProfile(userProfileChangeRequest)
     }
 
+    fun getStatus(): Boolean {
+        return running
+    }
 
 }

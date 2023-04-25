@@ -24,4 +24,8 @@ class LoginRepository (val dataSource: FirebaseLogin) {
         Log.d("signup","made it!!")
         dataSource.signUp(username, password, username.split("@")[0])
     }
+
+    fun getFirebaseStatus(): Boolean {
+        return dataSource.getStatus()
+    }
 }

@@ -62,14 +62,15 @@ class ResultsFragment : Fragment() {
         return binding.root
     }
 
-/*    override fun onAttach(context: Context) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
+
         if (context is OnProviderClickListener) {
             onProviderClickListener = context
         } else {
-            throw RuntimeException("Must implement EditProjectListener")
+            throw RuntimeException(context.toString())
         }
-    }*/
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -90,26 +91,17 @@ class ResultsFragment : Fragment() {
                 viewModel.setCurProvider(provider)
                 onProviderClickListener?.onProviderClick(provider)
 
-                view.findNavController()?.navigate(R.id.action_resultsFragment_to_reviewFragment)
+                //navigation is occurring in mai activity overridden onclick
+                //view.findNavController()?.navigate(R.id.action_resultsFragment_to_reviewFragment)
             }
 
             this.adapter = myAdapter
+
         }
 
         viewModel.providerResultList.observe(viewLifecycleOwner, Observer {
             myAdapter.replaceItems(it)
         })
-/*
-        listViewModel.curProviders.observe(viewLifecycleOwner, Observer {
-            myAdapter.replaceItems(it)
-            viewModel.initCurProvider(myAdapter.getProject(0))
-
-        })*/
-
-/*        viewModel.curProject.observe(viewLifecycleOwner, Observer {
-            myAdapter.notifyDataSetChanged()
-        })*/
-
 
     }
 

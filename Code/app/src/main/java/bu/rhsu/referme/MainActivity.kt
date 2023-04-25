@@ -11,18 +11,23 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.slidingpanelayout.widget.SlidingPaneLayout
 import bu.rhsu.referme.databinding.ActivityMainBinding
 import bu.rhsu.referme.fragments.SingleReviewFragment
 import bu.rhsu.referme.ui.login.LoginActivity
 import bu.rhsu.referme.ui.login.LoginViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
+import bu.rhsu.referme.fragments.ResultsFragment
+import bu.rhsu.referme.datalayer.Provider
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ResultsFragment.OnProviderClickListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -96,6 +101,12 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    override fun onProviderClick(provider: Provider) {
+        //findViewById<SlidingPaneLayout>(R.id.slidepane).open()
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        navController.navigate(R.id.action_resultsFragment_to_reviewFragment)
     }
 
 }

@@ -10,10 +10,11 @@
         android:name="bu.rhsu.referme.fragments.SingleReviewFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_single_review">
-
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_FirstFragment_pop"
+            app:popUpTo="@id/reviewFragment"
+            app:popUpToInclusive="true" >
+        </action>
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -21,9 +22,6 @@
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
         <action
             android:id="@+id/action_SecondFragment_to_addProviderFragment"
             app:destination="@id/addProviderFragment" />
@@ -34,7 +32,7 @@
     <fragment
         android:id="@+id/addProviderFragment"
         android:name="bu.rhsu.referme.fragments.AddProviderFragment"
-        android:label="fragment_add_prov"
+        android:label="Add a Provider"
         tools:layout="@layout/fragment_add_prov" >
         <action
             android:id="@+id/action_addProvider_pop"
@@ -45,7 +43,7 @@
     <fragment
         android:id="@+id/resultsFragment"
         android:name="bu.rhsu.referme.fragments.ResultsFragment"
-        android:label="fragment_results"
+        android:label="Search Results"
         tools:layout="@layout/fragment_results" >
         <action
             android:id="@+id/action_resultsFragment_to_reviewFragment"
@@ -54,7 +52,7 @@
     <fragment
         android:id="@+id/simpleSearchFragment2"
         android:name="bu.rhsu.referme.fragments.SimpleSearchFragment"
-        android:label="fragment_simple_search"
+        android:label="ReferME Search"
         tools:layout="@layout/fragment_simple_search" >
         <action
             android:id="@+id/action_simpleSearchFragment2_to_resultsFragment"
@@ -63,11 +61,17 @@
     <fragment
         android:id="@+id/reviewFragment"
         android:name="bu.rhsu.referme.fragments.ReviewFragment"
-        android:label="ReviewFragment">
+        android:label="Provider Reviews">
         <action
-            android:id="@+id/action_addProvider_pop"
+            android:id="@+id/action_reviewProvider_pop"
             app:popUpTo="@id/resultsFragment"
             app:popUpToInclusive="true" >
         </action>
+        <action
+            android:id="@+id/action_reviewFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_reviewFragment_self"
+            app:destination="@id/reviewFragment" />
     </fragment>
 </navigation>

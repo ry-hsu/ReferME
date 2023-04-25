@@ -65,25 +65,24 @@ class LoginActivity : AppCompatActivity() {
 
             loading.visibility = View.GONE
             if (loginResult.error != null) {
-                showLoginFailed(loginResult.error)
+                Log.d("loginresult",loginResult.error.toString())
+                //showLoginFailed(loginResult.error)
                 binding.registerButton?.visibility = View.VISIBLE
                 binding.login.text = "Sign In"
             }
-/*            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
+            if (loginResult.success != null) {
                 //Complete and destroy login activity once successful
                 finish()
-            }*/
+            }
             //setResult(Activity.RESULT_OK)
         })
 
-        loginViewModel.loggedInUser.observe(this, Observer {
-            it?.let{
-                updateUiWithUser(it)
-                finish()
-            }
+        loginViewModel.loggedInUser.observe(this, Observer { it ->
+                it?.let {
+                    updateUiWithUser(it)
+                    finish()
+                }
             //Complete and destroy login activity once successful
-
         })
 
         username.afterTextChanged {

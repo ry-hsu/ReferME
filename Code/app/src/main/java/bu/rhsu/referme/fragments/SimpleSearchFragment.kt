@@ -38,8 +38,14 @@ class SimpleSearchFragment : Fragment() {
 
         binding.simpleSearchButton.setOnClickListener {
             if(isDataValid()) {
+                //Do a simple provider search
+/*                viewModel.setProviderList(viewModel
+                    .getProvider(binding.editSearchProviderName.text.toString()))*/
+                //Complex search
                 viewModel.setProviderList(viewModel
-                    .getProvider(binding.editSearchProviderName.text.toString()))
+                    .getProvidersAll(binding.editSearchProviderName.text.toString(),
+                                binding.editSearchSpecialty.text.toString(),
+                                binding.editSearchZip.text.toString().toInt()))
                 Log.d("simple search",viewModel.providerResultList.value.toString())
                 view.findNavController().navigate(R.id.action_simpleSearchFragment2_to_resultsFragment)
             }
@@ -56,7 +62,7 @@ class SimpleSearchFragment : Fragment() {
     private fun isDataValid():Boolean {
         return ((binding.editSearchProviderName.text != null
                 || binding.editSearchSpecialty.text != null)
-                && binding.editSearchZip.text != null)
+                || binding.editSearchZip.text != null)
 
     }
 

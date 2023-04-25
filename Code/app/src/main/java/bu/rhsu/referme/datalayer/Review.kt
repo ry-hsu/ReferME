@@ -8,17 +8,17 @@ import java.util.*
 @Entity(tableName="reviews")
 data class Review(
     @PrimaryKey(autoGenerate = true)
-    val reviewId: Int,
+    val reviewId: Int = 0,
     @ColumnInfo(name="datetime")
-    var date: String,
+    var date: String? = null,
     @ColumnInfo(name="providerId")
-    val providerID: Int,
+    val providerID: String? = null,
     @ColumnInfo(name="userId")
-    var userID: String,
-    var bedManner: Float,
-    var expertise: Float,
-    var frontOffice: Float,
-    var facility: Float,
-    var text: String?) {
+    var userID: String? = null,
+    var bedManner: Float = 0f,
+    var expertise: Float = 0f,
+    var frontOffice: Float = 0f,
+    var facility: Float = 0f,
+    var text: String? = null) {
     var docId = ""
 }

@@ -17,6 +17,8 @@ import bu.rhsu.referme.datalayer.LoggedInUser
 
 import bu.rhsu.referme.R
 import bu.rhsu.referme.ReferMeApplication
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
     //class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
@@ -24,10 +26,13 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     private val loginRepository: LoginRepository =
         (application as ReferMeApplication).loginRepository
 
-    val loggedInUser: LiveData<LoggedInUser>
+    val loggedInUser: MutableLiveData<LoggedInUser>
         get() {
             return loginRepository.loggedInUser
         }
+    //var loggedInUser: MutableLiveData<LoggedInUser>
+
+    private var mAuth: FirebaseAuth
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
@@ -35,15 +40,27 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
+    init {
+        FirebaseApp.initializeApp (application.applicationContext);
+        mAuth = FirebaseAuth.getInstance();
+/*        loggedInUser = MutableLiveData()
+        mAuth.currentUser?.let{
+            loggedInUser.setValue(
+                LoggedInUser(it.uid,
+                    it.email?.split("@")?.get(0)?: "",
+                    it.email ?: ""))
+        }*/
+    }
+
     fun login(username: String, password: String) {
         // can be launched in a separate asynchronous job
         loginRepository.login(username, password)
-        Log.d("login",loggedInUser.value.toString())
-        if(loggedInUser.value == null) {
+
+        if(loginRepository.getFirebaseStatus() && loginRepository.loggedInUser.value == null) {
             _loginResult.value = LoginResult(error = R.string.login_failed)
         }
-        else {
-            _loginResult.value = LoginResult(success = LoggedInUserView(username))
+        else if(loginRepository.getFirebaseStatus() && loginRepository.loggedInUser.value != null){
+            _loginResult.value = LoginResult(success = loggedInUser)
         }
     }
 

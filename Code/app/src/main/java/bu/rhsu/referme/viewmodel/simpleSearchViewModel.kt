@@ -45,4 +45,9 @@ class simpleSearchViewModel(application: Application) : AndroidViewModel(applica
         return referMeRepository.searchProvider(name)
         //}
     }
+    fun getProvidersAll(name:String = "", spec: String = "", zip: Int = 0): MutableLiveData<List<Provider>> {
+        //viewModelScope.launch(Dispatchers.IO) {
+        return referMeRepository.searchProviderAll(name,spec,zip)
+        //}
+    }
 }
